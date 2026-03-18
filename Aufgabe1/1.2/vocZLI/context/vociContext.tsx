@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-import { Voci } from '../models/voci';
+import Voci from '../models/voci';
 
 interface VociContextType {
   vociList: Voci[];
@@ -11,11 +11,17 @@ interface VociContextType {
 const VociContext = createContext<VociContextType | undefined>(undefined);
 
 export function VociProvider({ children }: { children: ReactNode }) {
-  // TODO Fügen Sie hier Ihre eigenen Vokabeln ein
   const [vociList, setVociList] = useState<Voci[]>([
-    { term: 'apple', translation: 'Apfel' },
-    { term: 'banana', translation: 'Banane' },
-    { term: 'cherry', translation: 'Kirsche' },
+  { term: "apple", translation: "Apfel" },
+  { term: "car", translation: "Auto" },
+  { term: "house", translation: "Haus" },
+  { term: "dog", translation: "Hund" },
+  { term: "book", translation: "Buch" },
+  { term: "water", translation: "Wasser" },
+  { term: "table", translation: "Tisch" },
+  { term: "chair", translation: "Stuhl" },
+  { term: "window", translation: "Fenster" },
+  { term: "school", translation: "Schule" },
   ]);
 
   function addVoci(voci: Voci) {
