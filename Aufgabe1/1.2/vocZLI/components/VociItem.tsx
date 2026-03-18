@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginHorizontal: 16,
     marginVertical: 6,
-
     elevation: 3,
   },
   term: {
