@@ -43,6 +43,13 @@ export default function RootLayout() {
           presentation: "modal",
         }}
       />
+      <Stack.Screen
+        name="editVoci"
+        options={{
+          title: "Vokabel bearbeiten",
+          presentation: "modal",
+        }}
+      />
     </Stack>
     </VociProvider>
   );

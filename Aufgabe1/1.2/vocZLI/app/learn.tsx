@@ -155,16 +155,18 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   btnCorrect: {
+    flex: 1,
     backgroundColor: "#1a7a4a",
     paddingVertical: 14,
-    paddingHorizontal: 28,
     borderRadius: 12,
+    alignItems: "center",
   },
   btnWrong: {
+    flex: 1,
     backgroundColor: "#c0392b",
     paddingVertical: 14,
-    paddingHorizontal: 28,
     borderRadius: 12,
+    alignItems: "center",
   },
   btnText: {
     color: "#ffffff",
