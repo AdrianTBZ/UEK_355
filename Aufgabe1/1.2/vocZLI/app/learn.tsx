@@ -1,24 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
-import Voci from "../models/voci";
-
-// TODO: Temporäre Duplikation – wird später durch React Context ersetzt
-const vociList: Voci[] = [
-  { term: "apple", translation: "Apfel" },
-  { term: "car", translation: "Auto" },
-  { term: "house", translation: "Haus" },
-  { term: "dog", translation: "Hund" },
-  { term: "book", translation: "Buch" },
-  { term: "water", translation: "Wasser" },
-  { term: "table", translation: "Tisch" },
-  { term: "chair", translation: "Stuhl" },
-  { term: "window", translation: "Fenster" },
-  { term: "school", translation: "Schule" },
-];
+import { useVoci } from "../context/vociContext";
 
 export default function LearnScreen() {
   const router = useRouter();
+  const { vociList } = useVoci();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
   const [correct, setCorrect] = useState(0);

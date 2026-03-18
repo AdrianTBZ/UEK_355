@@ -2,21 +2,8 @@ import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import Voci from "../models/voci";
 import VociItem from "../components/VociItem";
-
-const vociList: Voci[] = [
-  { term: "apple", translation: "Apfel" },
-  { term: "car", translation: "Auto" },
-  { term: "house", translation: "Haus" },
-  { term: "dog", translation: "Hund" },
-  { term: "book", translation: "Buch" },
-  { term: "water", translation: "Wasser" },
-  { term: "table", translation: "Tisch" },
-  { term: "chair", translation: "Stuhl" },
-  { term: "window", translation: "Fenster" },
-  { term: "school", translation: "Schule" },
-];
+import { useVoci } from "../context/vociContext";
 
 function EmptyList() {
   return (
@@ -31,6 +18,7 @@ function EmptyList() {
 export default function Index() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const { vociList } = useVoci();
 
   return (
     <View style={{ flex: 1 }}>

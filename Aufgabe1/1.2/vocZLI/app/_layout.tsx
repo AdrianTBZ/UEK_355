@@ -1,7 +1,9 @@
 import { Stack } from 'expo-router';
+import { VociProvider } from '../context/vociContext';
 
 export default function RootLayout() {
   return (
+    <VociProvider>
     <Stack
       screenOptions={{
         headerStyle: {
@@ -26,5 +28,6 @@ export default function RootLayout() {
         }}
       />
     </Stack>
+    </VociProvider>
   );
 }
