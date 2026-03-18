@@ -31,7 +31,7 @@ export default function Index() {
         keyExtractor={(item) => item.term}
         renderItem={({ item }) => <VociItem voci={item} />}
         ListEmptyComponent={EmptyList}
-        contentContainerStyle={{ paddingBottom: insets.bottom + 80 }}
+        contentContainerStyle={{ paddingBottom: insets.bottom}}
       />
       <Pressable
         style={({ pressed }) => [
