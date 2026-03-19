@@ -1,4 +1,4 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,7 +18,15 @@ function EmptyList() {
 export default function Index() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { vociList } = useVoci();
+  const { vociList, isLoading } = useVoci();
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#1a7a4a" />
+      </View>
+    );
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -76,6 +84,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#bbbbbb",
     marginTop: 8,
+  },
+  loadingContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
   fab: {
     position: "absolute",

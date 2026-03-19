@@ -1,17 +1,10 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Voci from '../models/voci';
 
-interface VociContextType {
-  vociList: Voci[];
-  addVoci: (voci: Voci) => void;
-  updateVoci: (term: string, updatedVoci: Voci) => void;
-  removeVoci: (term: string) => void;
-}
+const STORAGE_KEY = 'vociList';
 
-const VociContext = createContext<VociContextType | undefined>(undefined);
-
-export function VociProvider({ children }: { children: ReactNode }) {
-  const [vociList, setVociList] = useState<Voci[]>([
+const DEFAULT_VOCI: Voci[] = [
   { term: "apple", translation: "Apfel" },
   { term: "car", translation: "Auto" },
   { term: "house", translation: "Haus" },
@@ -22,7 +15,57 @@ export function VociProvider({ children }: { children: ReactNode }) {
   { term: "chair", translation: "Stuhl" },
   { term: "window", translation: "Fenster" },
   { term: "school", translation: "Schule" },
-  ]);
+];
+
+interface VociContextType {
+  vociList: Voci[];
+  isLoading: boolean;
+  addVoci: (voci: Voci) => void;
+  updateVoci: (term: string, updatedVoci: Voci) => void;
+  removeVoci: (term: string) => void;
+}
+
+const VociContext = createContext<VociContextType | undefined>(undefined);
+
+export function VociProvider({ children }: { children: ReactNode }) {
+  const [vociList, setVociList] = useState<Voci[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Beim Start: Daten aus AsyncStorage laden
+  useEffect(() => {
+    async function loadVoci() {
+      try {
+        const stored = await AsyncStorage.getItem('vocis');
+        if (stored !== null) {
+          setVociList(JSON.parse(stored));
+          console.log('Vocis geladen');
+        } else {
+          setVociList(DEFAULT_VOCI);
+          console.log('Keine gespeicherten Vocis gefunden, Standard geladen');
+        }
+      } catch (error) {
+        console.log('Fehler beim Laden:', error);
+        setVociList(DEFAULT_VOCI);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadVoci();
+  }, []);
+
+  // Bei jeder Änderung: Daten in AsyncStorage speichern
+  useEffect(() => {
+    async function saveVoci() {
+      try {
+        const json = JSON.stringify(vociList);
+        await AsyncStorage.setItem('vocis', json);
+        console.log('Vocis gespeichert');
+      } catch (error) {
+        console.log('Fehler beim Speichern:', error);
+      }
+    }
+    saveVoci();
+  }, [vociList]);
 
   function addVoci(voci: Voci) {
     setVociList((prev) => [...prev, voci]);
@@ -39,7 +82,7 @@ export function VociProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <VociContext.Provider value={{ vociList, addVoci, updateVoci, removeVoci }}>
+    <VociContext.Provider value={{ vociList, isLoading, addVoci, updateVoci, removeVoci }}>
       {children}
     </VociContext.Provider>
   );
