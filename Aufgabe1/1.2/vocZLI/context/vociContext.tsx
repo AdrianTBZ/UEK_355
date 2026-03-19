@@ -8,13 +8,6 @@ const DEFAULT_VOCI: Voci[] = [
   { term: "apple", translation: "Apfel" },
   { term: "car", translation: "Auto" },
   { term: "house", translation: "Haus" },
-  { term: "dog", translation: "Hund" },
-  { term: "book", translation: "Buch" },
-  { term: "water", translation: "Wasser" },
-  { term: "table", translation: "Tisch" },
-  { term: "chair", translation: "Stuhl" },
-  { term: "window", translation: "Fenster" },
-  { term: "school", translation: "Schule" },
 ];
 
 interface VociContextType {

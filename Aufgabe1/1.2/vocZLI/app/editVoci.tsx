@@ -1,3 +1,4 @@
+import * as FileSystem from "expo-file-system/legacy";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useVoci } from "../context/vociContext";
 import VociDetail from "../components/VociDetail";
@@ -10,8 +11,13 @@ export default function EditVoci() {
 
   const voci = vociList.find((v) => v.term === term);
 
-  function handleSave(updatedVoci: Voci) {
+  async function handleSave(updatedVoci: Voci) {
     if (term) {
+      if (voci?.imageUri && voci.imageUri !== updatedVoci.imageUri) {
+        try {
+          await FileSystem.deleteAsync(voci.imageUri, { idempotent: true });
+        } catch {}
+      }
       updateVoci(term, updatedVoci);
     }
     router.back();
@@ -21,7 +27,12 @@ export default function EditVoci() {
     router.back();
   }
 
-  function handleDelete() {
+  async function handleDelete() {
+    if (voci?.imageUri) {
+      try {
+        await FileSystem.deleteAsync(voci.imageUri, { idempotent: true });
+      } catch {}
+    }
     if (term) {
       removeVoci(term);
     }

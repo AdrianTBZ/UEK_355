@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Animated, Pressable, StyleSheet, Text, View } from "react-native";
+import { Animated, Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { useVoci } from "../context/vociContext";
 
@@ -69,6 +69,13 @@ export default function LearnScreen() {
       <Animated.View
         style={[styles.card, { transform: [{ translateX: slideAnim }] }]}
       >
+        {currentVoci.imageUri && (
+          <Image
+            source={{ uri: currentVoci.imageUri }}
+            style={styles.image}
+            resizeMode="cover"
+          />
+        )}
         <Text style={styles.term}>{currentVoci.term}</Text>
         {showTranslation && (
           <Animated.Text style={[styles.translation, { opacity: fadeAnim }]}>
@@ -132,6 +139,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     elevation: 6,
     marginBottom: 32,
+    overflow: "hidden",
+  },
+  image: {
+    width: "100%",
+    height: 200,
+    borderRadius: 8,
+    marginBottom: 16,
   },
   term: {
     fontSize: 40,

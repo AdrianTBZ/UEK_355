@@ -1,6 +1,8 @@
+import * as FileSystem from "expo-file-system/legacy";
 import { Alert, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { useState } from "react";
 import Voci from "../models/voci";
+import ImagePickerButton from "./ImagePickerButton";
 
 interface VociDetailProps {
   voci?: Voci;
@@ -12,6 +14,7 @@ interface VociDetailProps {
 export default function VociDetail({ voci, onSave, onCancel, onDelete }: VociDetailProps) {
   const [term, setTerm] = useState(voci?.term ?? "");
   const [translation, setTranslation] = useState(voci?.translation ?? "");
+  const [imageUri, setImageUri] = useState(voci?.imageUri);
 
   const isEditMode = voci !== undefined;
 
@@ -21,7 +24,7 @@ export default function VociDetail({ voci, onSave, onCancel, onDelete }: VociDet
       return;
     }
 
-    onSave({ term: term.trim(), translation: translation.trim() });
+    onSave({ term: term.trim(), translation: translation.trim(), imageUri });
   }
 
   function handleDelete() {
@@ -35,8 +38,18 @@ export default function VociDetail({ voci, onSave, onCancel, onDelete }: VociDet
     );
   }
 
+  async function handleImageSelected(newUri: string) {
+    if (imageUri && imageUri.startsWith(FileSystem.documentDirectory ?? '')) {
+      try {
+        await FileSystem.deleteAsync(imageUri, { idempotent: true });
+      } catch {}
+    }
+    setImageUri(newUri);
+  }
+
   return (
     <View style={styles.container}>
+      <ImagePickerButton imageUri={imageUri} onImageSelected={handleImageSelected} />
       <TextInput
         style={styles.input}
         placeholder="Begriff"

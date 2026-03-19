@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useRouter } from "expo-router";
 import Voci from "../models/voci";
 
@@ -14,8 +14,13 @@ export default function VociItem({ voci }: Props) {
       onPress={() => router.push(`/editVoci?term=${encodeURIComponent(voci.term)}`)}
     >
       <View style={styles.card}>
-        <Text style={styles.term}>{voci.term}</Text>
-        <Text style={styles.translation}>{voci.translation}</Text>
+        {voci.imageUri && (
+          <Image source={{ uri: voci.imageUri }} style={styles.thumbnail} />
+        )}
+        <View style={styles.textContainer}>
+          <Text style={styles.term}>{voci.term}</Text>
+          <Text style={styles.translation}>{voci.translation}</Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -29,6 +34,23 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginVertical: 6,
     elevation: 3,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  thumbnail: {
+    width: 60,
+    height: 60,
+    borderRadius: 8,
+  },
+  thumbnailPlaceholder: {
+    width: 60,
+    height: 60,
+    borderRadius: 8,
+    backgroundColor: "#dddddd",
+  },
+  textContainer: {
+    flex: 1,
   },
   term: {
     fontSize: 18,

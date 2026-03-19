@@ -8,6 +8,13 @@
     "scheme": "voczli",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "ios": {
+      "infoPlist": {
+        "NSCameraUsageDescription": "Diese App benötigt Zugriff auf die Kamera, um Bilder aufzunehmen.",
+        "NSPhotoLibraryUsageDescription": "Diese App benötigt Zugriff auf die Fotobibliothek, um Bilder auszuwählen.",
+        "NSMicrophoneUsageDescription": "Diese App benötigt Zugriff auf das Mikrofon."
+      }
+    },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
@@ -16,7 +23,13 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "output": "static",
@@ -24,6 +37,13 @@
     },
     "plugins": [
       "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Diese App benötigt Zugriff auf die Fotobibliothek, um Bilder auszuwählen.",
+          "cameraPermission": "Diese App benötigt Zugriff auf die Kamera, um Bilder aufzunehmen."
+        }
+      ],
       [
         "expo-splash-screen",
         {
