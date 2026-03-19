@@ -51,6 +51,16 @@ export default function Index() {
       >
         <Ionicons name="play" size={28} color="#fff" />
       </Pressable>
+      <Pressable
+        style={({ pressed }) => [
+          styles.fabSensor,
+          { bottom: insets.bottom + 20 },
+          pressed && styles.fabPressed,
+        ]}
+        onPress={() => router.push("/sensorDebug")}
+      >
+        <Ionicons name="speedometer-outline" size={24} color="#fff" />
+      </Pressable>
     </View>
   );
 }
@@ -105,5 +115,17 @@ const styles = StyleSheet.create({
   fabPressed: {
     opacity: 0.75,
     elevation: 4,
+  },
+  fabSensor: {
+    position: "absolute",
+    bottom: 20,
+    left: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#1a7a4a",
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 8,
   },
 });
