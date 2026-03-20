@@ -56,6 +56,12 @@ export default function RootLayout() {
           title: "Sensor Debug",
         }}
       />
+      <Stack.Screen
+        name="pushupCounter"
+        options={{
+          title: "Liegestützenzähler",
+        }}
+      />
     </Stack>
     </VociProvider>
   );

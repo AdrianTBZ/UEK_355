@@ -61,6 +61,16 @@ export default function Index() {
       >
         <Ionicons name="speedometer-outline" size={24} color="#fff" />
       </Pressable>
+      <Pressable
+        style={({ pressed }) => [
+          styles.fabPushup,
+          { bottom: insets.bottom + 92 },
+          pressed && styles.fabPressed,
+        ]}
+        onPress={() => router.push("/pushupCounter")}
+      >
+        <Ionicons name="fitness-outline" size={24} color="#fff" />
+      </Pressable>
     </View>
   );
 }
@@ -124,6 +134,17 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 30,
     backgroundColor: "#1a7a4a",
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 8,
+  },
+  fabPushup: {
+    position: "absolute",
+    left: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#1a5fa8",
     alignItems: "center",
     justifyContent: "center",
     elevation: 8,
